@@ -28,12 +28,7 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Assemble the public website
-        run: |
-          mkdir -p _site/assets
-          cp index.html ai.html _site/
-          cp assets/icon.svg assets/site.css assets/site.js assets/flash-policy.mjs _site/assets/
-          cp assets/screen-home.png assets/screen-music.png assets/screen-reader.png assets/screen-calendar.png _site/assets/
-          touch _site/.nojekyll
+        run: node scripts/assemble-site.mjs
       - name: Upload only the website
         uses: actions/upload-pages-artifact@v4
         with:

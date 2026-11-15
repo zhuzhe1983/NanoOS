@@ -2,3 +2,5 @@ _site/
 .playwright-cli/
 output/
 .DS_Store
+release-preparation/
+tests/

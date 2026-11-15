@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0b10">
+  <meta name="description" content="NanoOS 0.0.1 版本说明、适用设备与安装状态。固件下载和 ESP32-S31 网页刷写仍待完整验证。">
+  <title>0.0.1 版本与安装 — NanoOS</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/release.css">
+  <script type="module" src="assets/release.js"></script>
+</head>
+<body class="release-page">
+<a class="skip-link" href="#main">跳到主要内容</a>
+<header class="site-header wrap"><a class="brand" href="index.html" aria-label="NanoOS 首页"><img src="assets/icon.svg" width="28" height="28" alt=""><span>NanoOS</span></a><nav aria-label="主导航"><a href="index.html">概览</a><a href="ai.html">AI 与模型</a><a class="nav-install active" aria-current="page" href="release.html">版本与安装</a></nav></header>
+<main class="wrap release-main" id="main">
+  <section class="release-hero" aria-labelledby="release-title"><div><div class="eyebrow"><span class="status-dot"></span> RELEASE NOTES / 准备中</div><h1 id="release-title">NanoOS <span>0.0.1</span></h1><p>把音乐、阅读与灵感，放在手边。<br>这一版正在完成实机测试，固件尚未公开下载。</p><div class="release-tags"><span class="pill">FAKE POD NANO PRO S31</span><span class="pill">ESP32-S31 · 16 MiB</span></div></div><div class="version-art" aria-hidden="true"><span>nano</span><strong>0.0.1</strong><small>音乐 · 文字 · 灵感</small></div></section>
+  <section class="release-summary" aria-labelledby="new-title"><div class="section-heading"><div><span class="eyebrow">IN THIS VERSION</span><h2 id="new-title">这一版，正在完善。</h2></div><p>以下为开发版本进展。<br>实测通过的部分，不代表全部场景均已通过。</p></div><div class="release-grid">
+    <article><span class="model-mark pink">MEDIA</span><h3>随身媒体，更顺手</h3><p>音乐后台播放、视频暂停与定位、照片预览和墙纸应用。实机已完成部分播放与资源回收测试；视频性能仍在优化。</p></article>
+    <article><span class="model-mark purple">VOICE</span><h3>按住说，松手发送</h3><p>录音自动识别并提交，字幕只用于显示；滑出可取消。实机录音、普通对话和朗读已运行，完整语音生成墙纸仍待闭环验证。</p></article>
+    <article><span class="model-mark blue">DAILY</span><h3>阅读与日常，慢慢来</h3><p>文字阅读、日历、录音历史与纪要、全局墙纸。纪要和部分系统动作已有实现，仍需完成真实模型与设备测试。</p></article>
+  </div></section>
+  <section class="release-limits" aria-labelledby="limits-title"><h2 id="limits-title">发布前，还要完成这些验证。</h2><dl><div><dt>LocalSend 互通</dt><dd>接收端已有实现；官方客户端的发现与传输尚未通过，不承诺当前可用。</dd></div><div><dt>语音换墙纸</dt><dd>模型生成、照片预览和应用已分别测试；从设备录音到生成、预览、确认应用的完整流程仍待验证。<a href="ai.html#demo">真实演示待录制 →</a></dd></div><div><dt>网页刷写</dt><dd>候选已通过源码、模拟协议和浏览器检查；ESP32-S31 的 Web Serial 实机读写、恢复与启动仍未验证。</dd></div><div><dt>格式与外设</dt><dd>视频限受支持的小尺寸 H.264 / AAC MP4；EPUB、PDF 需先导入转换。蓝牙、AirPlay 与 USB 的兼容场景仍有待验项。</dd></div></dl></section>
+  <section id="installer" class="release-installer" aria-labelledby="installer-title"><div class="installer-intro"><span class="eyebrow">INSTALL NANOOS</span><h2 id="installer-title">准备好，再写入。</h2><p>只面向保留原分区表的 S31 设备。安装器将核对镜像、芯片和分区，只更新现有 app0，并完整读回校验。</p><p class="muted">不会执行全盘擦除。中途停止可能使 app0 不完整；现有启动选择保持不变，写入成功仍需确认设备能正常启动。</p><a href="third-party.html" class="text-button">刷写组件与开源许可 ↗</a></div><div class="installer-controls"><span class="pill">下载与安装未开放</span><h3 id="release-state" aria-live="polite">测试与发布准备中</h3><p id="release-detail" role="status">固件尚未开放下载；此页不会请求串口权限。</p><div class="release-buttons"><button type="button" id="prepare-firmware" disabled>1 · 准备并校验固件</button><button type="button" id="connect-install" disabled>2 · 连接设备并安装</button><button type="button" id="cancel-install" disabled>取消</button></div><small>需 HTTPS 与支持 Web Serial 的桌面浏览器。<br>最终文件大小、SHA-256 与安装说明会随已验证固件一起发布。</small><noscript><p>此浏览器未启用 JavaScript。当前固件仍未发布。</p></noscript></div></section>
+  <p class="release-footnote">当前展示版本进展，不提供试刷固件；真实演示会在功能验证后上线。</p>
+</main>
+<footer class="site-footer wrap"><span>NanoOS <span class="muted">· 0.0.1 发布准备</span></span><div><a href="ai.html">AI 配置指南</a><a href="https://github.com/zhuzhe1983/NanoOS" rel="noopener noreferrer" target="_blank">GitHub ↗</a></div></footer>
+</body></html>
