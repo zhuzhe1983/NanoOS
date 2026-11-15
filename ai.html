@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b10">
+  <meta name="description" content="了解 NanoOS 的 AI 模型配置：服务地址、认证限制与模型 ID，以及识别、对话、朗读、图像生成的各自职责。">
+  <title>AI 与模型 — NanoOS</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css">
+  <script type="module" src="assets/site.js"></script>
+</head>
+<body class="ai-page">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header wrap"><a class="brand" href="index.html" aria-label="NanoOS 首页"><img src="assets/icon.svg" alt="" width="28" height="28"><span>NanoOS</span></a><nav aria-label="主导航"><a href="index.html">概览</a><a class="active" aria-current="page" href="ai.html">AI 与模型</a><a class="nav-install" href="index.html#install">安装 <span aria-hidden="true">↗</span></a></nav></header>
+  <main id="main" class="wrap ai-main">
+    <section class="ai-hero" aria-labelledby="ai-title">
+      <div class="ai-hero-copy"><div class="eyebrow"><span class="status-dot"></span> AI ON NANOOS <span class="eyebrow-divider">/</span> 0.0.1 计划能力</div><h1 id="ai-title">灵感一来，<br><span>开口就好。</span></h1><p>让设备听懂你的话，与模型对话，<br class="desktop-only">再把想法变成眼前的画面。</p><a class="button-link" href="#configure">从模型配置开始 <span aria-hidden="true">↓</span></a><small>功能验证中 · 固件待发布</small></div>
+      <div class="voice-concept" aria-label="语音换墙纸的流程示意，尚非实机演示"><div class="concept-label"><span class="pill">交互示意</span><span>VOICE → WALLPAPER</span></div><div class="voice-orb" aria-hidden="true"><div></div></div><p class="voice-quote">“换一张紫色极光墙纸。”</p><div class="concept-flow"><span>说出想法</span><i aria-hidden="true">→</i><span>生成图像</span><i aria-hidden="true">→</i><span>确认应用</span></div><small>计划中的交互流程，实际效果待固件验证。</small></div>
+    </section>
+    <section class="ai-section" aria-labelledby="models-title"><div class="section-heading"><div><span class="eyebrow">FOUR ROLES. ONE EXPERIENCE.</span><h2 id="models-title">四种能力，各司其职。</h2></div><p>模型运行在你配置的服务上。<br>设备负责交互与结果呈现。</p></div>
+      <div class="model-grid"><article><span class="model-mark blue">ASR</span><h3>听懂你</h3><p>把录下的语音转为请求，并把识别结果显示为字幕。</p><small>识别模型</small></article><article><span class="model-mark purple">LLM</span><h3>理解与回答</h3><p>处理文字问题，生成回答；设备动作仍需专门适配。</p><small>对话模型</small></article><article><span class="model-mark pink">TTS</span><h3>读给你听</h3><p>把回答或书中文字转为声音，需要可用的语音服务。</p><small>朗读模型</small></article><article><span class="model-mark amber">IMAGE</span><h3>把灵感画出来</h3><p>按文字描述生成图像，墙纸应用流程正在验证。</p><small>文生图模型 · 开发中</small></article></div>
+    </section>
+    <section id="configure" class="ai-section configure-section" aria-labelledby="configure-title"><div class="section-heading"><div><span class="eyebrow">SET UP YOUR MODELS</span><h2 id="configure-title">先连接模型，<br>再开启更多可能。</h2></div><p>在设备的「设置 → 应用设置 → 模型与服务」配置，<br>或使用设备自己的网页设置。这里是指南，不会保存配置。</p></div>
+      <div class="config-layout"><ol class="setup-steps"><li><span>01</span><div><h3>填写服务地址</h3><p>填设备能够访问的服务根地址。当前 LocalAI 接入由固件补全接口路径，不要重复填写 <code>/v1</code>，也不要使用电脑上的 <code>localhost</code>。</p></div></li><li><span>02</span><div><h3>确认服务认证方式</h3><p>本版尚未提供通用 API Key 输入，需使用设备可访问的免鉴权局域网服务或受控网关。不要把密钥拼在地址里；本站不收集 API Key。</p></div></li><li><span>03</span><div><h3>分别指定模型 ID</h3><p>填写服务端实际提供的识别、对话、朗读与文生图模型名称。模型 ID 区分大小写；不能仅凭展示名称推断。</p></div></li><li><span>04</span><div><h3>保存后，逐项验证</h3><p>先用短句测试识别，再测试对话与朗读，最后验证图像生成。缺少配置时隐藏对应入口的逻辑，随 0.0.1 一起验证。</p></div></li></ol>
+      <div class="config-example"><div class="example-header"><span class="pill">配置示例</span><span>仅作说明</span></div><dl><div><dt>服务根地址</dt><dd><code>https://ai.example.com</code></dd></div><div><dt>API Key</dt><dd>本版尚未提供</dd></div><div><dt>对话模型 · LLM</dt><dd><code>YOUR_CHAT_MODEL_ID</code></dd></div><div><dt>识别模型 · ASR</dt><dd><code>YOUR_ASR_MODEL_ID</code></dd></div><div><dt>朗读模型 · TTS</dt><dd><code>YOUR_TTS_MODEL_ID</code></dd></div><div><dt>文生图模型</dt><dd><code>YOUR_IMAGE_MODEL_ID</code></dd></div></dl><p>以上均为占位符，不能直接用于连接。服务还需提供与固件匹配的接口和输出格式。</p></div></div>
+    </section>
+    <section class="ai-section" aria-labelledby="ptt-title"><div class="section-heading"><div><span class="eyebrow">PRESS. SPEAK. RELEASE.</span><h2 id="ptt-title">按住说话，松手就开始。</h2></div><p>PTT（按住说话）与语音动作正在验证。<br>0.0.1 的最终入口和行为以发布固件为准。</p></div><ol class="ptt-flow"><li><span>1</span><strong>按住说话</strong><p>录下本次需求，松开结束。</p></li><li><span>2</span><strong>松手识别</strong><p>自动转写语音，识别字幕仅作显示。</p></li><li><span>3</span><strong>自动处理</strong><p>直接提交请求，获得回答或执行动作。</p></li><li><span>4</span><strong>查看结果</strong><p>阅读或听回答；应用生成墙纸前再确认。</p></li></ol></section>
+    <section class="demo-section" aria-labelledby="demo-title"><div><span class="eyebrow">THE REAL THING, SOON.</span><h2 id="demo-title">一句话，换个心情。</h2><p>语音更换墙纸的完整设备演示，<br>将在功能验证后录制并上线。</p><span class="demo-status"><span class="status-dot"></span> 演示待录制</span></div><div class="demo-placeholder" aria-label="暂无演示视频"><span class="video-outline" aria-hidden="true">▷</span><strong>真实演示，即将补上。</strong><p>当前没有可播放的视频。</p></div></section>
+    <section class="faq-section" aria-labelledby="faq-title"><h2 id="faq-title">开始前，你可能想知道。</h2><details><summary>这些 AI 功能现在都能用了吗？</summary><p>还没有。已有文字问答、录音识别与回答朗读的开发实现；完整 PTT、缺配置隐藏入口及语音换墙纸正在开发与验证，通用 API Key 配置尚未提供。0.0.1 固件尚未发布，本页描述计划能力，不代表整条流程已在设备上验收。</p></details><details><summary>一定要配置四个模型吗？</summary><p>按所需能力配置即可：语音问答需要识别与对话模型；听回答可另配朗读模型；语音生成墙纸还需要图像模型。计划只呈现已配置的能力，具体依赖关系以发布版为准。</p></details><details><summary>我说的话会发送到哪里？</summary><p>语音识别、对话、语音合成和图像生成由你设置的服务处理，相应的录音或文字会在操作时发往该服务。请按服务的隐私与收费规则使用。本站只提供介绍，不接收录音、提示词或密钥。</p></details><details><summary>能直接填写任意厂商的模型吗？</summary><p>模型名称相同不代表接口兼容。当前实现以 LocalAI 兼容接口为基础，服务必须能被设备访问，并匹配固件支持的请求与返回格式；不承诺所有模型服务即填即用。</p></details></section>
+  </main>
+  <footer class="site-footer wrap"><span>NanoOS <span class="muted">· 0.0.1 开发预览</span></span><div><a href="index.html">返回概览</a><a href="index.html#install">安装状态 <span aria-hidden="true">↗</span></a></div></footer>
+</body>
+</html>
