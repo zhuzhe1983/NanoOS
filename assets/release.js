@@ -27,6 +27,7 @@ if (!RELEASE.enabled) {
   status.textContent = '测试与发布准备中';
   detail.textContent = '固件尚未开放下载；此页不会请求串口权限。';
 } else if (!ready) detail.textContent = '请在 HTTPS 页面使用支持 Web Serial 的桌面浏览器。';
+else { status.textContent = '固件可准备'; detail.textContent = '先下载并校验固件；完成后再次点击连接设备。'; }
 prepare.addEventListener('click', async () => {
   controller = new AbortController(); prepare.disabled = true; install.disabled = true; cancel.disabled = false;
   try {

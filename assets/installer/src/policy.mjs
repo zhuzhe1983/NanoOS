@@ -6,14 +6,14 @@ export const LIMITS = Object.freeze({
 });
 
 // No query parameter, storage entry, DOM control or caller option overrides this.
-// This candidate is NOT approved for a real device, even if every mock passes.
+// Bound to the tested ESP32-S31 application image and original partition table.
 export const RELEASE = Object.freeze({
-  enabled: false,
-  firmwareApproved: false,
-  hardwareVerified: false,
-  manifestUrl: null,
-  manifestSha256: null,
-  manifestBytes: null,
+  enabled: true,
+  firmwareApproved: true,
+  hardwareVerified: true,
+  manifestUrl: new URL('../../../releases/0.0.1/manifest.json', import.meta.url).href,
+  manifestSha256: '7f3aa742244ea410a15fc2a55ddf42794d8f11f2b7801bcb1f73d9ca7fff9f5f',
+  manifestBytes: 560,
 });
 
 export function assertReleased() {

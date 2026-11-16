@@ -1,29 +1,33 @@
 import { LIMITS, check, checkSignal, hex } from './policy.mjs';
+import { eventDrivenTransport } from './event-transport.mjs';
 
+const READ_PACKET_BYTES = 256;
 const u32 = n => { const bytes = new Uint8Array(4); new DataView(bytes.buffer).setUint32(0, n, true); return bytes; };
 
 // esptool-js 0.7.1 leaves the stub's final MD5 packet unread (#273).
 // This narrow protocol adapter consumes AND checks it before another command.
-// 4 KiB packets / four in flight match the proposed upstream #274 approach.
+// The pinned S31 stub accepts requested packets up to 4096 bytes and already
+// limits outstanding packets to one. Request 256 B; retain exact length checks.
 export async function readFlashVerified(loader, address, length, md5, signal) {
   checkSignal(signal);
   check(loader.IS_STUB === true, '读取要求已启动并识别的 flasher stub');
   check(Number.isSafeInteger(address) && Number.isSafeInteger(length) && address >= 0 && length > 0 && length <= LIMITS.readChunk && address + length <= LIMITS.flashBytes, '读取范围超限');
   const command = new Uint8Array(16);
-  [address, length, 4096, 4].forEach((n, i) => command.set(u32(n), i * 4));
+  [address, length, READ_PACKET_BYTES, 1].forEach((n, i) => command.set(u32(n), i * 4));
   check(await loader.checkCommand('read flash', loader.ESP_READ_FLASH, command) === 0, '设备拒绝 Flash 读取');
   const bytes = new Uint8Array(length);
   let received = 0;
   while (received < length) {
     checkSignal(signal);
     const packet = await loader.transport.read(5000);
-    check(packet instanceof Uint8Array && packet.length === Math.min(4096, length - received), 'Flash 数据包过短、超长或失步');
+    check(packet instanceof Uint8Array && packet.length === Math.min(READ_PACKET_BYTES, length - received), `Flash 数据包过短、超长或失步（received=${received}, expected=${Math.min(READ_PACKET_BYTES, length - received)}, actual=${packet instanceof Uint8Array ? packet.length : 'not-Uint8Array'}）`);
     bytes.set(packet, received); received += packet.length;
     checkSignal(signal);
     await loader.transport.write(u32(received));
   }
   checkSignal(signal);
   const digest = await loader.transport.read(5000);
+  checkSignal(signal);
   check(digest instanceof Uint8Array && digest.length === 16 && hex(digest) === md5(bytes), 'Flash 读取末尾 MD5 校验失败');
   return bytes;
 }
@@ -32,7 +36,8 @@ export async function createEspDriver({ port, signal, md5, implementation }) {
   // The real code is only loaded by the release-gated entry point. Tests inject
   // classes, never a real SerialPort. No navigator access exists in this module.
   checkSignal(signal);
-  const { ESPLoader, Transport } = implementation ?? await import('../vendor/esptool-js-0.7.1.mjs');
+  const { ESPLoader, Transport: VendorTransport, ESPError } = implementation ?? await import('../vendor/esptool-js-0.7.1.mjs');
+  const Transport = eventDrivenTransport(VendorTransport, ESPError);
   checkSignal(signal);
   const transport = new Transport(port, false);
   let opening, disconnecting, closing, ownsPort = false, connected = false, stopped = false;
