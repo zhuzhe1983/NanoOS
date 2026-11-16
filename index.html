@@ -44,7 +44,7 @@
     <section class="feature-strip" aria-label="更多能力">
       <div><span class="feature-symbol pink" aria-hidden="true">♫</span><p><strong>随身媒体库</strong><span>音乐、视频、照片与播客</span></p></div>
       <div><span class="feature-symbol blue" aria-hidden="true">↔</span><p><strong>轻松传文件</strong><span>同一局域网，浏览器管理</span></p></div>
-      <div><span class="feature-symbol amber" aria-hidden="true">◐</span><p><strong>你的使用习惯</strong><span>壁纸、亮度与后台播放</span></p></div>
+      <div><span class="feature-symbol amber" aria-hidden="true">◐</span><p><strong>你的使用习惯</strong><span>表盘、Badge 与后台播放</span></p></div>
       <a class="ai-feature" href="ai.html"><span class="feature-symbol purple" aria-hidden="true">✦</span><p><strong>让 AI 随身 <span aria-hidden="true">↗</span></strong><span>了解语音交互与模型配置</span></p></a>
     </section>
     <section id="install" class="install-panel" aria-labelledby="install-title">
@@ -56,7 +56,7 @@
   <footer class="site-footer wrap"><span>NanoOS <span class="muted">· 0.0.1 测试版</span></span><div><a href="ai.html">AI 配置指南</a><a href="https://github.com/zhuzhe1983/NanoOS" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></footer>
 
   <dialog id="screen-dialog" class="screen-dialog" aria-labelledby="screen-title"><button class="dialog-close" type="button" aria-label="关闭界面预览">×</button><img id="screen-image" src="assets/screen-home.png" width="460" height="460" alt=""><h2 id="screen-title">首页</h2><p id="screen-description"></p><small>设备 LVGL 软件捕获；非 LCD 面板回读。</small></dialog>
-  <dialog id="capabilities" class="info-dialog" aria-labelledby="capabilities-title"><button class="dialog-close" type="button" aria-label="关闭功能说明">×</button><span class="eyebrow">ABOUT 0.0.1</span><h2 id="capabilities-title">当前功能与适配范围</h2><p class="dialog-intro">NanoOS 0.0.1 是完整功能测试版。以下说明已有实现与适用边界，不代表任意媒体、服务或客户端均兼容。</p><dl class="capability-list"><div><dt>音乐与视频 <span>已有实现</span></dt><dd>本地 MP3、PCM WAV、受限 FLAC / AAC；视频需预先转为受支持的小尺寸 H.264 / AAC MP4。并非任意视频都可直接播放。</dd></div><div><dt>阅读与朗读 <span>按页阅读与缓存</span></dt><dd>原生 UTF-8 TXT 阅读；EPUB、PDF、XTC 等需先在电脑导入。自然语音依赖服务或有效缓存，OCR 页须复核；不保证整本离线或连续韵律。</dd></div><div><dt>日常与连接 <span>已有实现</span></dt><dd>月历、壁纸、后台播放、局域网文件传输与网页设置。日历订阅为只读；浏览器传文件不是 AirDrop。</dd></div><div><dt>AI 与设备互通 <span>兼容范围有限</span></dt><dd>按住说话、松手发送，生成墙纸确认后应用。模型需自行配置；无 VAD。官方 LocalSend GUI 尚未完成互通；保留 AirPlay 音频接收能力，兼容范围有限；发送尚未实现，不支持视频镜像。</dd></div></dl><a class="button-link" href="ai.html">了解 AI 与模型 <span aria-hidden="true">→</span></a></dialog>
+  <dialog id="capabilities" class="info-dialog" aria-labelledby="capabilities-title"><button class="dialog-close" type="button" aria-label="关闭功能说明">×</button><span class="eyebrow">ABOUT 0.0.1</span><h2 id="capabilities-title">当前功能与适配范围</h2><p class="dialog-intro">NanoOS 0.0.1 是完整功能测试版。以下说明已有实现与适用边界，不代表任意媒体、服务或客户端均兼容。</p><dl class="capability-list"><div><dt>音乐与视频 <span>已有实现</span></dt><dd>本地 MP3、PCM WAV、受限 FLAC / AAC；视频需预先转为受支持的小尺寸 H.264 / AAC MP4。并非任意视频都可直接播放。</dd></div><div><dt>阅读与朗读 <span>按页阅读与缓存</span></dt><dd>原生 UTF-8 TXT 阅读；EPUB、PDF、XTC 等需先在电脑导入。自然语音依赖服务或有效缓存，OCR 页须复核；不保证整本离线或连续韵律。</dd></div><div><dt>日常与连接 <span>已有实现</span></dt><dd>月历、表盘、锁屏组件、图片／静音视频 Badge、后台播放与网页设置。16 款表盘背景需另存 TF 资源包；日历订阅为只读。</dd></div><div><dt>AI 与设备互通 <span>兼容范围有限</span></dt><dd>按住说话、松手发送，生成墙纸确认后应用。模型需自行配置；无 VAD。Mac 原生 LocalSend 已完成一次文件传输与完整读回校验，其他客户端仍需验证；保留 AirPlay 音频接收能力，兼容范围有限；发送尚未实现，不支持视频镜像。</dd></div></dl><a class="button-link" href="ai.html">了解 AI 与模型 <span aria-hidden="true">→</span></a></dialog>
 
 </body>
 </html>

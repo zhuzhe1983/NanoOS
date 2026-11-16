@@ -1,7 +1,9 @@
 import { lstat, mkdir, copyFile, rm, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { RELEASE } from '../assets/installer/src/policy.mjs';
-// Exact tested 0.0.1 payload. Technical gates do not assert source-license resolution.
+// Explicit public allowlist. Technical gates do not assert source-license resolution.
+// This draft cannot deploy until root hands off the final hardware-verified build.
+const releaseContentReady = false;
 export const publicFiles = [
   "index.html",
   "ai.html",
@@ -32,6 +34,8 @@ export const publicFiles = [
   "assets/installer/licenses/esp-flasher-stub-APACHE.txt",
   "assets/installer/licenses/esp-flasher-stub-MIT.txt",
   "releases/0.0.1/nanoos-0.0.1-app0.bin",
+  "releases/0.0.1/resources/atlas-v1.nfa",
+  "releases/0.0.1/resources/SHA256SUMS.txt",
   "releases/0.0.1/manifest.json",
   "releases/0.0.1/SHA256SUMS.txt",
   "releases/0.0.1/FIRMWARE-NOTICES.txt",
@@ -170,13 +174,13 @@ const exactFiles = [
   },
   {
     "path": "index.html",
-    "bytes": 7766,
-    "sha256": "f6209203e919b8a1ddf9907819edc5ccc2e927ccf7c7239f7236802e0c26028e"
+    "bytes": 7855,
+    "sha256": "62ba539419d352ae55ab49d22c1db6ceb53f406804561ff12208c3973d91d495"
   },
   {
     "path": "release.html",
-    "bytes": 10407,
-    "sha256": "a9d4394a6469653ca2b8f23171b0cad1d8d9d37f5ebe9df3be12f5b0fbcf4497"
+    "bytes": 15970,
+    "sha256": "37ad1b2ba7222ba41a7a1321f086466c9aaa74c3ef670fb7fd30e32bb37bc878"
   },
   {
     "path": "releases/0.0.1/FIRMWARE-NOTICES.txt",
@@ -202,8 +206,19 @@ const exactFiles = [
     "path": "third-party.html",
     "bytes": 3055,
     "sha256": "abaa02a1aff169cf19d5d097e4db751151f1ce3915fa6ad4273170ab986ed9b6"
+  },
+  {
+    "path": "releases/0.0.1/resources/atlas-v1.nfa",
+    "bytes": 6771488,
+    "sha256": "d95654d995826bfd03c063ab0577d7b9739614b5ace715dc555e8ea560d29d25"
+  },
+  {
+    "path": "releases/0.0.1/resources/SHA256SUMS.txt",
+    "bytes": 79,
+    "sha256": "de0f12a77f7c95a37a6a9b8240d8b58e59855b87ed9b72104a4f35450d6c6f4e"
   }
 ];
+if (!releaseContentReady) throw Error('Pages update is pending the final hardware-verified firmware handoff');
 if (!RELEASE.enabled || !RELEASE.firmwareApproved || !RELEASE.hardwareVerified ||
     RELEASE.manifestSha256 !== '7f3aa742244ea410a15fc2a55ddf42794d8f11f2b7801bcb1f73d9ca7fff9f5f' || RELEASE.manifestBytes !== 560 ||
     !RELEASE.manifestUrl.endsWith('/releases/0.0.1/manifest.json')) throw Error('Unexpected release binding');
@@ -217,4 +232,4 @@ for (const item of exactFiles) {
 try { if ((await lstat('_site')).isSymbolicLink()) throw Error('Refusing symlink output'); } catch(e) { if(e.code!=='ENOENT') throw e; }
 await rm('_site',{recursive:true,force:true});
 for(const file of publicFiles){const output=`_site/${file}`;await mkdir(output.slice(0,output.lastIndexOf('/')),{recursive:true});await copyFile(file,output);}
-console.log(JSON.stringify({version:'0.0.1',firmware:true,install:true,publicFileCount:33,GPLSourceProvisionResolved:false,publicFiles}));
+console.log(JSON.stringify({version:'0.0.1',firmware:true,install:true,publicFileCount:publicFiles.length,GPLSourceProvisionResolved:false,publicFiles}));
