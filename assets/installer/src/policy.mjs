@@ -97,7 +97,12 @@ async function downloadBytes(url, expectedBytes, signal, fetcher) {
   const response = await fetcher(url, { signal, redirect: 'error', credentials: 'omit', cache: 'no-store' });
   check(response.ok && response.body, '下载失败或响应没有流');
   const declared = response.headers.get('content-length');
-  check(declared === null || Number(declared) === expectedBytes, '下载声明长度不匹配');
+  // Fetch exposes decoded bytes, while Content-Length describes the encoded
+  // transfer when Pages/CDNs use gzip or Brotli. Bound the decoded stream below;
+  // its exact size and the caller's pinned SHA-256 remain authoritative.
+  const encoding = response.headers.get('content-encoding')?.trim().toLowerCase();
+  const encoded = Boolean(encoding && encoding !== 'identity');
+  check(encoded || declared === null || Number(declared) === expectedBytes, '下载声明长度不匹配');
   const reader = response.body.getReader(), bytes = new Uint8Array(expectedBytes);
   let offset = 0;
   try {

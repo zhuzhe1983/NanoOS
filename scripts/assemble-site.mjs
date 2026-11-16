@@ -110,8 +110,8 @@ const exactFiles = [
   },
   {
     "path": "assets/installer/src/policy.mjs",
-    "bytes": 8465,
-    "sha256": "8a4f6b57a61856a2256f87280a33a454a6d94fec92fbeef6134bf9a7a2e00b69"
+    "bytes": 8856,
+    "sha256": "2d749a48102ce2075b18a358669dbffb37e58ac448c57b8d9a6248b87f64eb7b"
   },
   {
     "path": "assets/installer/vendor-integrity.json",
