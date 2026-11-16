@@ -1,4 +1,4 @@
-import { LIMITS, RELEASE, assertReleased, check, checkSignal, sha256, equal, validateManifest, validateImage, validatePartitions, boundedFetch } from './policy.mjs';
+import { LIMITS, assertReleased, check, checkSignal, sha256, equal, validateManifest, validateImage, validatePartitions, boundedFetch } from './policy.mjs';
 
 // This engine receives a driver explicitly for deterministic mock testing.
 // The only browser-facing path to a real SerialPort is installReleased below.
@@ -31,7 +31,7 @@ export async function runCandidateInstall({ manifest, image, baseURL, makeDriver
   try {
     const plan = validateManifest(manifest, baseURL);
     check(image instanceof Uint8Array, '镜像必须为字节数组');
-    image = image.slice();
+    image = new Uint8Array(image);
     const revision = await stage('validating', () => validateImage(image, plan));
     driver = await stage('preparing-driver', () => makeDriver(activeSignal));
     const device = await stage('connecting', () => driver.connect());
@@ -85,19 +85,20 @@ export async function runCandidateInstall({ manifest, image, baseURL, makeDriver
 }
 
 export async function installReleased({ signal, onState, fetcher = fetch, serial = globalThis.navigator?.serial, md5 }) {
-  assertReleased(); // MUST precede every network request, import and port access.
+  const release = assertReleased('app'); // MUST precede every network request, import and port access.
   check(globalThis.isSecureContext && serial?.requestPort, '需要 HTTPS 与 Web Serial');
   // Future release metadata must be committed alongside an approved manifest
   // digest and bounded manifest size; there is no user-selected firmware path.
-  const manifestBytes = await boundedFetch(RELEASE.manifestUrl, RELEASE.manifestBytes, signal, fetcher);
-  check(await sha256(manifestBytes) === RELEASE.manifestSha256, '发布描述摘要不匹配');
+  const manifestBytes = await boundedFetch(release.manifestUrl, release.manifestBytes, signal, fetcher);
+  check(await sha256(manifestBytes) === release.manifestSha256, '发布描述摘要不匹配');
   const manifest = JSON.parse(new TextDecoder().decode(manifestBytes));
-  const plan = validateManifest(manifest, RELEASE.manifestUrl);
+  check(manifest.mode === 'app' && manifest.build === release.build && manifest.hardware_verified === true, '该 App 安装包尚未完成实机放行');
+  const plan = validateManifest(manifest, release.manifestUrl);
   const image = await boundedFetch(plan.url, plan.bytes, signal, fetcher, 120000);
   await validateImage(image, plan);
   checkSignal(signal);
   const port = await serial.requestPort();
   checkSignal(signal);
   const { createEspDriver } = await import('./esp-adapter.mjs');
-  return runCandidateInstall({ manifest, image, baseURL: RELEASE.manifestUrl, signal, onState, md5, makeDriver: activeSignal => createEspDriver({ port, signal: activeSignal, md5 }) });
+  return runCandidateInstall({ manifest, image, baseURL: release.manifestUrl, signal, onState, md5, makeDriver: activeSignal => createEspDriver({ port, signal: activeSignal, md5 }) });
 }

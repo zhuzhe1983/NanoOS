@@ -2,8 +2,8 @@ import { lstat, mkdir, copyFile, rm, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { RELEASE } from '../assets/installer/src/policy.mjs';
 // Explicit public allowlist. Technical gates do not assert source-license resolution.
-// This draft cannot deploy until root hands off the final hardware-verified build.
-const releaseContentReady = false;
+// Root approved the r014e payload and App/Full Python backend hardware evidence.
+const releaseContentReady = true;
 export const publicFiles = [
   "index.html",
   "ai.html",
@@ -39,13 +39,25 @@ export const publicFiles = [
   "releases/0.0.1/manifest.json",
   "releases/0.0.1/SHA256SUMS.txt",
   "releases/0.0.1/FIRMWARE-NOTICES.txt",
-  ".nojekyll"
+  ".nojekyll",
+  "assets/installer/src/full-policy.mjs",
+  "assets/installer/src/full-installer.mjs",
+  "releases/0.0.1/resources/nanoos-0.0.1-tf-resources.zip",
+  "releases/0.0.1/r014e/full-manifest.json",
+  "releases/0.0.1/r014e/app-manifest.json",
+  "releases/0.0.1/r014e/full/bootloader.bin",
+  "releases/0.0.1/r014e/full/partition-table.bin",
+  "releases/0.0.1/r014e/full/ota-data.bin",
+  "releases/0.0.1/r014e/full/nanoOS26_prism.bin",
+  "releases/0.0.1/r014e/FIRMWARE-NOTICES.txt",
+  "releases/0.0.1/r014e/SHA256SUMS.txt",
+  "releases/0.0.1/r014e/NanoOS-0.0.1-Windows-x64-r014e.zip"
 ];
 const exactFiles = [
   {
-    "path": ".nojekyll",
-    "bytes": 0,
-    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    "path": "index.html",
+    "bytes": 7893,
+    "sha256": "78dfcb624aec8176fe4ea926bb5117c7bf382845d10d3e75e8da2d1d9462cd3e"
   },
   {
     "path": "ai.html",
@@ -53,99 +65,39 @@ const exactFiles = [
     "sha256": "b125a64cade57c4e75ab28e456463dcd9a6680928f844e7604aab531dc2892eb"
   },
   {
+    "path": "release.html",
+    "bytes": 20716,
+    "sha256": "514451570afe7c1e734b397fa723a2f1ba63d6614adfab333f36c9fb12890fa6"
+  },
+  {
+    "path": "third-party.html",
+    "bytes": 3061,
+    "sha256": "00ed378e2def5f6bd0f6d680356b96c9300465b84b7df7ac99c1ffe774682931"
+  },
+  {
     "path": "assets/icon.svg",
     "bytes": 371,
     "sha256": "60714e6d3da77c77e3b84e947fa3aef399f77b1673931da4753420a859e8c6cc"
   },
   {
-    "path": "assets/installer/licenses/atob-lite.txt",
-    "bytes": 1073,
-    "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b"
+    "path": "assets/site.css",
+    "bytes": 19246,
+    "sha256": "a91b93aa9c9ec1e0295c172d95e7865c43df0f10bd3854ab729b4977dcef4ff7"
   },
   {
-    "path": "assets/installer/licenses/esp-flasher-stub-APACHE.txt",
-    "bytes": 11365,
-    "sha256": "d43f35ab3dc4530949ed297fbc3b2851168ad06386d037640f7f28066bfd0736"
-  },
-  {
-    "path": "assets/installer/licenses/esp-flasher-stub-MIT.txt",
-    "bytes": 1092,
-    "sha256": "3494c7cc2f9ac2cf0961ee4d3182b6b509c822c2060e136f230009b54188386b"
-  },
-  {
-    "path": "assets/installer/licenses/esptool-js.txt",
-    "bytes": 11365,
-    "sha256": "1c25f29242785d63e9adb0be7fdc137551dfbbc0756b622fcd26d9cd7de3a4f3"
-  },
-  {
-    "path": "assets/installer/licenses/pako.txt",
-    "bytes": 1104,
-    "sha256": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539"
-  },
-  {
-    "path": "assets/installer/licenses/spark-md5.txt",
-    "bytes": 486,
-    "sha256": "9c4214d48030b7e877ed2fd76044ea079a987c9b3f01f9b6964ba4a475a5a13d"
-  },
-  {
-    "path": "assets/installer/release.mjs",
-    "bytes": 2013,
-    "sha256": "7f2008a2b9b0e6215e6225b41397dff728512b4898f694f4fbced5d849c96b08"
-  },
-  {
-    "path": "assets/installer/session.mjs",
-    "bytes": 3534,
-    "sha256": "5c170d6ee97f0f2db4ed6373749b37ebcfe7ca31a51f70d1cd74be15ca44f059"
-  },
-  {
-    "path": "assets/installer/src/esp-adapter.mjs",
-    "bytes": 7521,
-    "sha256": "e804dbaba581c09e995f06307c638ba5e11781d7bec7a888b9b703b8eb7f7e26"
-  },
-  {
-    "path": "assets/installer/src/event-transport.mjs",
-    "bytes": 3972,
-    "sha256": "bfae66f6e123027a4617989bd0b5f25eb573ac523824696adcb0791b421a4a6a"
-  },
-  {
-    "path": "assets/installer/src/installer.mjs",
-    "bytes": 6744,
-    "sha256": "cd9a29be8338f933b3cd41beaee0911fe620f10b37313292ef671d2c13f27d0f"
-  },
-  {
-    "path": "assets/installer/src/policy.mjs",
-    "bytes": 8856,
-    "sha256": "2d749a48102ce2075b18a358669dbffb37e58ac448c57b8d9a6248b87f64eb7b"
-  },
-  {
-    "path": "assets/installer/vendor-integrity.json",
-    "bytes": 398,
-    "sha256": "1da6b663fdeb090c037148a61aa2ab0bbc01c754058267f522390fba03313f2b"
-  },
-  {
-    "path": "assets/installer/vendor/esptool-js-0.7.1.mjs",
-    "bytes": 315949,
-    "sha256": "d6a4b0b7c9b747a7370cfa976164a962f56332d5faa7c3b45cdb95a2a8b1d456"
-  },
-  {
-    "path": "assets/installer/vendor/spark-md5-3.0.2.js",
-    "bytes": 10166,
-    "sha256": "d80e84c820cc5587a0ba3c8a20652099ea3fa7fc43944e812e56d449c1d9f1c9"
+    "path": "assets/site.js",
+    "bytes": 1969,
+    "sha256": "acc535e08d1b6b4f3cd1319d0e3ecac5e2bfc509283536ceda6501246486b2d2"
   },
   {
     "path": "assets/release.css",
-    "bytes": 4511,
-    "sha256": "38b6a03212ff163c663badeeb434768f82c106621bb0267032d781a3b0096788"
+    "bytes": 5592,
+    "sha256": "9cf45a212de04cb67f4f33b01c6a1d7d4a7dc74b3faa92201fd999b6baa04978"
   },
   {
     "path": "assets/release.js",
-    "bytes": 4066,
-    "sha256": "f78b422e8a939884a663ccdb5df5903a6706c50cf7756b1633bc3a2c829c3bcb"
-  },
-  {
-    "path": "assets/screen-calendar.png",
-    "bytes": 10908,
-    "sha256": "eae4fa563a04d6977f787d169c7ad6e5d57c0cff6f992567881e50c9fba86724"
+    "bytes": 8017,
+    "sha256": "fd0db223e981932a93fd9b4f519d0b4f5e071412cf2af5eddc4c11183c342f97"
   },
   {
     "path": "assets/screen-home.png",
@@ -163,49 +115,89 @@ const exactFiles = [
     "sha256": "3b71d958501a974714607fa7e76bc8c916e48850a546f7547e5117ba4cb9c008"
   },
   {
-    "path": "assets/site.css",
-    "bytes": 19246,
-    "sha256": "a91b93aa9c9ec1e0295c172d95e7865c43df0f10bd3854ab729b4977dcef4ff7"
+    "path": "assets/screen-calendar.png",
+    "bytes": 10908,
+    "sha256": "eae4fa563a04d6977f787d169c7ad6e5d57c0cff6f992567881e50c9fba86724"
   },
   {
-    "path": "assets/site.js",
-    "bytes": 1969,
-    "sha256": "acc535e08d1b6b4f3cd1319d0e3ecac5e2bfc509283536ceda6501246486b2d2"
+    "path": "assets/installer/session.mjs",
+    "bytes": 3534,
+    "sha256": "5c170d6ee97f0f2db4ed6373749b37ebcfe7ca31a51f70d1cd74be15ca44f059"
   },
   {
-    "path": "index.html",
-    "bytes": 7855,
-    "sha256": "62ba539419d352ae55ab49d22c1db6ceb53f406804561ff12208c3973d91d495"
+    "path": "assets/installer/release.mjs",
+    "bytes": 4210,
+    "sha256": "b7650590624b45dd7122496b8021d1510652581cfabd111dd989af734eb1ddff"
   },
   {
-    "path": "release.html",
-    "bytes": 15970,
-    "sha256": "37ad1b2ba7222ba41a7a1321f086466c9aaa74c3ef670fb7fd30e32bb37bc878"
+    "path": "assets/installer/src/policy.mjs",
+    "bytes": 9469,
+    "sha256": "cabe9a9f559096634e8724a1bdc24e30e9a2d1c02e536a2fdac0642416fccd4a"
   },
   {
-    "path": "releases/0.0.1/FIRMWARE-NOTICES.txt",
-    "bytes": 826214,
-    "sha256": "11c289f75598eb326c6ea52420d5c9945ce9fefe01939733a0471235b717987e"
+    "path": "assets/installer/src/esp-adapter.mjs",
+    "bytes": 8743,
+    "sha256": "865b29e6f083afd462b4d3b37d99a47ea844f35b9fac9eedd8dc369a10130a94"
   },
   {
-    "path": "releases/0.0.1/SHA256SUMS.txt",
-    "bytes": 255,
-    "sha256": "382a579e688f7142a902b63e43d96578844c1ad343ffdd47ab19c36cf8aac8bf"
+    "path": "assets/installer/src/event-transport.mjs",
+    "bytes": 3972,
+    "sha256": "bfae66f6e123027a4617989bd0b5f25eb573ac523824696adcb0791b421a4a6a"
   },
   {
-    "path": "releases/0.0.1/manifest.json",
-    "bytes": 560,
-    "sha256": "7f3aa742244ea410a15fc2a55ddf42794d8f11f2b7801bcb1f73d9ca7fff9f5f"
+    "path": "assets/installer/src/installer.mjs",
+    "bytes": 6918,
+    "sha256": "a24e87e9a80e6134c503a69a77f44ac52817063b10863af05b912b9466e52b8d"
+  },
+  {
+    "path": "assets/installer/vendor/esptool-js-0.7.1.mjs",
+    "bytes": 315949,
+    "sha256": "d6a4b0b7c9b747a7370cfa976164a962f56332d5faa7c3b45cdb95a2a8b1d456"
+  },
+  {
+    "path": "assets/installer/vendor/spark-md5-3.0.2.js",
+    "bytes": 10166,
+    "sha256": "d80e84c820cc5587a0ba3c8a20652099ea3fa7fc43944e812e56d449c1d9f1c9"
+  },
+  {
+    "path": "assets/installer/vendor-integrity.json",
+    "bytes": 398,
+    "sha256": "1da6b663fdeb090c037148a61aa2ab0bbc01c754058267f522390fba03313f2b"
+  },
+  {
+    "path": "assets/installer/licenses/esptool-js.txt",
+    "bytes": 11365,
+    "sha256": "1c25f29242785d63e9adb0be7fdc137551dfbbc0756b622fcd26d9cd7de3a4f3"
+  },
+  {
+    "path": "assets/installer/licenses/atob-lite.txt",
+    "bytes": 1073,
+    "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b"
+  },
+  {
+    "path": "assets/installer/licenses/pako.txt",
+    "bytes": 1104,
+    "sha256": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539"
+  },
+  {
+    "path": "assets/installer/licenses/spark-md5.txt",
+    "bytes": 486,
+    "sha256": "9c4214d48030b7e877ed2fd76044ea079a987c9b3f01f9b6964ba4a475a5a13d"
+  },
+  {
+    "path": "assets/installer/licenses/esp-flasher-stub-APACHE.txt",
+    "bytes": 11365,
+    "sha256": "d43f35ab3dc4530949ed297fbc3b2851168ad06386d037640f7f28066bfd0736"
+  },
+  {
+    "path": "assets/installer/licenses/esp-flasher-stub-MIT.txt",
+    "bytes": 1092,
+    "sha256": "3494c7cc2f9ac2cf0961ee4d3182b6b509c822c2060e136f230009b54188386b"
   },
   {
     "path": "releases/0.0.1/nanoos-0.0.1-app0.bin",
     "bytes": 4190784,
     "sha256": "3201d1526c26ea754337a0675ea1c60a3d58570d4dbd91869b84bea56cbc60cf"
-  },
-  {
-    "path": "third-party.html",
-    "bytes": 3055,
-    "sha256": "abaa02a1aff169cf19d5d097e4db751151f1ce3915fa6ad4273170ab986ed9b6"
   },
   {
     "path": "releases/0.0.1/resources/atlas-v1.nfa",
@@ -214,14 +206,99 @@ const exactFiles = [
   },
   {
     "path": "releases/0.0.1/resources/SHA256SUMS.txt",
-    "bytes": 79,
-    "sha256": "de0f12a77f7c95a37a6a9b8240d8b58e59855b87ed9b72104a4f35450d6c6f4e"
+    "bytes": 175,
+    "sha256": "043a444503647468697bf5cac478ec651b079c36ba007134f425ac8225d40c68"
+  },
+  {
+    "path": "releases/0.0.1/manifest.json",
+    "bytes": 560,
+    "sha256": "7f3aa742244ea410a15fc2a55ddf42794d8f11f2b7801bcb1f73d9ca7fff9f5f"
+  },
+  {
+    "path": "releases/0.0.1/SHA256SUMS.txt",
+    "bytes": 255,
+    "sha256": "382a579e688f7142a902b63e43d96578844c1ad343ffdd47ab19c36cf8aac8bf"
+  },
+  {
+    "path": "releases/0.0.1/FIRMWARE-NOTICES.txt",
+    "bytes": 826214,
+    "sha256": "11c289f75598eb326c6ea52420d5c9945ce9fefe01939733a0471235b717987e"
+  },
+  {
+    "path": ".nojekyll",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "assets/installer/src/full-policy.mjs",
+    "bytes": 4327,
+    "sha256": "ff28264854f219bbebe03a9dccb3fe9589c731d3c088145f03859d0a268b566a"
+  },
+  {
+    "path": "assets/installer/src/full-installer.mjs",
+    "bytes": 7792,
+    "sha256": "2227318d110c4b4a12cbc638cbe31fdccf2b1eff702d3e93bfe9e08f66178bd0"
+  },
+  {
+    "path": "releases/0.0.1/resources/nanoos-0.0.1-tf-resources.zip",
+    "bytes": 2867713,
+    "sha256": "25cd4964b699136cf85eafe4c5ff59d12eb248e8a73d45f7d821db30a2ad463a"
+  },
+  {
+    "path": "releases/0.0.1/r014e/full-manifest.json",
+    "bytes": 1077,
+    "sha256": "06f9864af0dae52cb122b866ec877b41c5a28cb91a4a577ec76ce0a7adeb9331"
+  },
+  {
+    "path": "releases/0.0.1/r014e/app-manifest.json",
+    "bytes": 628,
+    "sha256": "50c2509fb8e11c012fef15970541565a962ff11f62f5113c178b56a2413032af"
+  },
+  {
+    "path": "releases/0.0.1/r014e/full/bootloader.bin",
+    "bytes": 22304,
+    "sha256": "2fce714b1ed50f3e5e07ffff763617f634da977be2b6b1d676632a3bb5cba167"
+  },
+  {
+    "path": "releases/0.0.1/r014e/full/partition-table.bin",
+    "bytes": 3072,
+    "sha256": "cc296c67732b24fc8fe359062e06d09b247de1abd225909b3902b5d13b1dc3df"
+  },
+  {
+    "path": "releases/0.0.1/r014e/full/ota-data.bin",
+    "bytes": 8192,
+    "sha256": "7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f"
+  },
+  {
+    "path": "releases/0.0.1/r014e/full/nanoOS26_prism.bin",
+    "bytes": 4193808,
+    "sha256": "703d2b48bab3859403c828e648e9f610d6a9a01721a368298b2371842fc7c485"
+  },
+  {
+    "path": "releases/0.0.1/r014e/FIRMWARE-NOTICES.txt",
+    "bytes": 826411,
+    "sha256": "7bd64dce0a576d57c5bf176d24db598d2d6a23d4aaac0560dedf8693ed5de778"
+  },
+  {
+    "path": "releases/0.0.1/r014e/SHA256SUMS.txt",
+    "bytes": 708,
+    "sha256": "4b292d40d3a636e981f128bdd274fab86802036cbe0af5c0611da83d04df1d46"
+  },
+  {
+    "path": "releases/0.0.1/r014e/NanoOS-0.0.1-Windows-x64-r014e.zip",
+    "bytes": 27611337,
+    "sha256": "37e1d3304606ba61e9440ebad3c238411a6a877b205f029b1ea07a9fd5f1d6e5"
   }
 ];
-if (!releaseContentReady) throw Error('Pages update is pending the final hardware-verified firmware handoff');
-if (!RELEASE.enabled || !RELEASE.firmwareApproved || !RELEASE.hardwareVerified ||
-    RELEASE.manifestSha256 !== '7f3aa742244ea410a15fc2a55ddf42794d8f11f2b7801bcb1f73d9ca7fff9f5f' || RELEASE.manifestBytes !== 560 ||
-    !RELEASE.manifestUrl.endsWith('/releases/0.0.1/manifest.json')) throw Error('Unexpected release binding');
+if (!releaseContentReady) throw Error('Release content is not approved');
+if (!RELEASE.enabled || !RELEASE.firmwareApproved || !RELEASE.hardwareVerified) throw Error('Release is not hardware-approved');
+for (const mode of ['full','app']) {
+  const path = `releases/0.0.1/r014e/${mode}-manifest.json`;
+  const exact = exactFiles.find(item => item.path === path), binding = RELEASE.modes[mode];
+  if (!exact || binding.manifestSha256 !== exact.sha256 || binding.manifestBytes !== exact.bytes || !binding.manifestUrl.endsWith('/' + path)) throw Error('Unexpected release binding: ' + mode);
+  const manifest = JSON.parse(await readFile(path, 'utf8'));
+  if (manifest.hardware_verified !== true || manifest.mode !== mode || manifest.build !== binding.build) throw Error('Manifest not hardware-approved: ' + mode);
+}
 for (const item of exactFiles) {
   const bits=item.path.split('/');
   for (let i=1;i<=bits.length;i++) if ((await lstat(bits.slice(0,i).join('/'))).isSymbolicLink()) throw Error(`No public symlinks: ${item.path}`);

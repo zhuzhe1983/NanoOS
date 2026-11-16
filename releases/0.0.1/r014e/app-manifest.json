@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "product": "NanoOS",
+  "version": "0.0.1",
+  "target": {
+    "chip": "ESP32-S31",
+    "chipId": 32,
+    "flashBytes": 16777216
+  },
+  "image": {
+    "path": "full/nanoOS26_prism.bin",
+    "partition": "app0",
+    "offset": 65536,
+    "bytes": 4193808,
+    "sha256": "703d2b48bab3859403c828e648e9f610d6a9a01721a368298b2371842fc7c485"
+  },
+  "partitionTable": {
+    "offset": 32768,
+    "bytes": 4096,
+    "sha256": "0d07801a8c51ddc2b85b1aa302c64b770d7ec471c9dabd33a80d644b5ac7b96c"
+  },
+  "eraseAll": false,
+  "preserveOtherPartitions": true,
+  "build": "r014e",
+  "mode": "app",
+  "hardware_verified": true
+}

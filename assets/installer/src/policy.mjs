@@ -11,16 +11,32 @@ export const RELEASE = Object.freeze({
   enabled: true,
   firmwareApproved: true,
   hardwareVerified: true,
-  manifestUrl: new URL('../../../releases/0.0.1/manifest.json', import.meta.url).href,
-  manifestSha256: '7f3aa742244ea410a15fc2a55ddf42794d8f11f2b7801bcb1f73d9ca7fff9f5f',
-  manifestBytes: 560,
+  modes: Object.freeze({
+    full: Object.freeze({
+      mode: 'full', build: 'r014e',
+      manifestUrl: new URL('../../../releases/0.0.1/r014e/full-manifest.json', import.meta.url).href,
+      manifestSha256: '06f9864af0dae52cb122b866ec877b41c5a28cb91a4a577ec76ce0a7adeb9331', manifestBytes: 1077,
+    }),
+    app: Object.freeze({
+      mode: 'app', build: 'r014e',
+      manifestUrl: new URL('../../../releases/0.0.1/r014e/app-manifest.json', import.meta.url).href,
+      manifestSha256: '50c2509fb8e11c012fef15970541565a962ff11f62f5113c178b56a2413032af', manifestBytes: 628,
+    }),
+  }),
 });
 
-export function assertReleased() {
+export function getRelease(mode = 'full') {
+  check(mode === 'full' || mode === 'app', '安装模式无效');
+  return RELEASE.modes[mode];
+}
+
+export function assertReleased(mode = 'full') {
+  const release = getRelease(mode);
   if (!RELEASE.enabled || !RELEASE.firmwareApproved || !RELEASE.hardwareVerified ||
-      !RELEASE.manifestUrl || !RELEASE.manifestSha256 || !Number.isSafeInteger(RELEASE.manifestBytes) || RELEASE.manifestBytes < 1 || RELEASE.manifestBytes > LIMITS.manifestBytes) {
-    throw new Error('发布门禁关闭：固件未获准发布，S31 实机刷写尚未验证。');
+      !release.manifestUrl || !release.manifestSha256 || !Number.isSafeInteger(release.manifestBytes) || release.manifestBytes < 1 || release.manifestBytes > LIMITS.manifestBytes) {
+    throw new Error('发布门禁关闭：最终固件与两种安装方式尚未完成实机验证。');
   }
+  return release;
 }
 
 export const hex = bytes => [...bytes].map(n => n.toString(16).padStart(2, '0')).join('');

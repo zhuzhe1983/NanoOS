@@ -1,5 +1,6 @@
 import { LIMITS, check, checkSignal, hex } from './policy.mjs';
 import { eventDrivenTransport } from './event-transport.mjs';
+import { FULL_PARTS, sectorBytes } from './full-policy.mjs';
 
 const READ_PACKET_BYTES = 256;
 const u32 = n => { const bytes = new Uint8Array(4); new DataView(bytes.buffer).setUint32(0, n, true); return bytes; };
@@ -40,7 +41,7 @@ export async function createEspDriver({ port, signal, md5, implementation }) {
   const Transport = eventDrivenTransport(VendorTransport, ESPError);
   checkSignal(signal);
   const transport = new Transport(port, false);
-  let opening, disconnecting, closing, ownsPort = false, connected = false, stopped = false;
+  let opening, disconnecting, closing, ownsPort = false, connected = false, stopped = false, fullPartIndex = 0;
   const checkActive = () => { checkSignal(signal); check(!stopped, '设备已停止'); };
   for (const name of ['write', 'setDTR', 'setRTS', 'setSignals']) {
     if (typeof transport[name] !== 'function') continue;
@@ -116,6 +117,25 @@ export async function createEspDriver({ port, signal, md5, implementation }) {
       const digest = await loader.flashMd5sum(address, length);
       check(/^[a-f0-9]{32}$/.test(digest), '保护区摘要格式无效');
       return digest;
+    },
+    async digestFull() {
+      checkActive(); check(connected && !closing, '设备未连接或已停止');
+      const digest = await loader.flashMd5sum(0, LIMITS.flashBytes);
+      check(/^[a-f0-9]{32}$/.test(digest), '整片 Flash 摘要格式无效');
+      return digest;
+    },
+    async writeFullPart(address, bytes, progress) {
+      checkActive(); check(connected && !closing, '设备未连接或已停止');
+      const allowed = FULL_PARTS[fullPartIndex];
+      check(allowed && address === allowed.offset && bytes instanceof Uint8Array && bytes.length === sectorBytes(allowed.bytes), '完整安装写入顺序、地址或长度不匹配');
+      check(bytes.subarray(allowed.bytes).every(byte => byte === 0xff), '安装段的扇区填充必须为 FF');
+      await loader.writeFlash({
+        fileArray: [{ data: bytes, address: allowed.offset }],
+        flashMode: 'keep', flashFreq: 'keep', flashSize: 'keep',
+        eraseAll: false, compress: true, calculateMD5Hash: md5,
+        reportProgress: (_file, written, total) => { checkActive(); progress?.(written, total); },
+      });
+      checkActive(); fullPartIndex++;
     },
     async writeApp(bytes, progress) {
       checkSignal(signal); check(connected && !closing, '设备未连接或已停止');
