@@ -13,14 +13,14 @@ export const RELEASE = Object.freeze({
   hardwareVerified: true,
   modes: Object.freeze({
     full: Object.freeze({
-      mode: 'full', build: 'r014e',
-      manifestUrl: new URL('../../../releases/0.0.1/r014e/full-manifest.json', import.meta.url).href,
-      manifestSha256: '06f9864af0dae52cb122b866ec877b41c5a28cb91a4a577ec76ce0a7adeb9331', manifestBytes: 1077,
+      mode: 'full', build: 'r018',
+      manifestUrl: new URL('../../../releases/0.0.1/r018/full-manifest.json', import.meta.url).href,
+      manifestSha256: '31109ac3a3a591369d8e0fd628c004c0814fe3a777a8ccc87848e2b6370779c7', manifestBytes: 1124,
     }),
     app: Object.freeze({
-      mode: 'app', build: 'r014e',
-      manifestUrl: new URL('../../../releases/0.0.1/r014e/app-manifest.json', import.meta.url).href,
-      manifestSha256: '50c2509fb8e11c012fef15970541565a962ff11f62f5113c178b56a2413032af', manifestBytes: 628,
+      mode: 'app', build: 'r018',
+      manifestUrl: new URL('../../../releases/0.0.1/r018/app-manifest.json', import.meta.url).href,
+      manifestSha256: '541fccc1f6eec48fa7ce3502d64cb2fcb72812c520343bbe4c34bc35fcb32c16', manifestBytes: 675,
     }),
   }),
 });

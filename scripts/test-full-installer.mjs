@@ -8,10 +8,10 @@ import {runCandidateFullInstall,saveBackupToFile} from '../assets/installer/src/
 import {runCandidateInstall} from '../assets/installer/src/installer.mjs';
 import {createEspDriver} from '../assets/installer/src/esp-adapter.mjs';
 import {releaseSessions} from '../assets/installer/release.mjs';
-const baseURL='https://nanoos.test/releases/0.0.1/r014e/full-manifest.json';
-const manifest=JSON.parse(await readFile(new URL('../releases/0.0.1/r014e/full-manifest.json',import.meta.url)));
-const appManifest=JSON.parse(await readFile(new URL('../releases/0.0.1/r014e/app-manifest.json',import.meta.url)));
-const payloads=await Promise.all(manifest.parts.map(async p=>new Uint8Array(await readFile(new URL('../releases/0.0.1/r014e/'+p.path,import.meta.url)))));
+const baseURL='https://nanoos.test/releases/0.0.1/r018/full-manifest.json';
+const manifest=JSON.parse(await readFile(new URL('../releases/0.0.1/r018/full-manifest.json',import.meta.url)));
+const appManifest=JSON.parse(await readFile(new URL('../releases/0.0.1/r018/app-manifest.json',import.meta.url)));
+const payloads=await Promise.all(manifest.parts.map(async p=>new Uint8Array(await readFile(new URL('../releases/0.0.1/r018/'+p.path,import.meta.url)))));
 const plan=validateFullManifest(manifest,baseURL);
 const md5=b=>createHash('md5').update(b).digest('hex');
 const table=new Uint8Array(4096).fill(0xff);table.set(payloads[1]);

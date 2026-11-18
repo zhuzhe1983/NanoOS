@@ -1,0 +1,9 @@
+{
+  "version": "0.0.1",
+  "build": "r018",
+  "device": "ESP32-S31, 16 MiB",
+  "application_sha256": "0b858cc6bf7951c82a70415496498b9acb79f127f886e629923b7cbe1650daa1",
+  "application_install": "r018 app0 written on S31; full 16 MiB readback and unchanged retained regions verified",
+  "full_install": "Unchanged bootloader, partition table and OTA initializer previously verified by a full S31 install; r018 four-part plan tested on host. No separate full-mode hardware run for this build.",
+  "native_windows_tested": false
+}

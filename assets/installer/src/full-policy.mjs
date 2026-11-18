@@ -1,12 +1,12 @@
 import { LIMITS, check, sha256, validateImage, validatePartitions } from './policy.mjs';
 
-export const FULL_BUILD = 'r014e';
+export const FULL_BUILD = 'r018';
 export const ORIGINAL_TABLE_SHA256 = '0d07801a8c51ddc2b85b1aa302c64b770d7ec471c9dabd33a80d644b5ac7b96c';
 export const FULL_PARTS = Object.freeze([
   { path:'full/bootloader.bin', offset:0x2000, bytes:22304, sha256:'2fce714b1ed50f3e5e07ffff763617f634da977be2b6b1d676632a3bb5cba167', label:'引导程序' },
   { path:'full/partition-table.bin', offset:0x8000, bytes:3072, sha256:'cc296c67732b24fc8fe359062e06d09b247de1abd225909b3902b5d13b1dc3df', label:'分区表' },
   { path:'full/ota-data.bin', offset:0xe000, bytes:8192, sha256:'7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f', label:'启动选择' },
-  { path:'full/nanoOS26_prism.bin', offset:0x10000, bytes:4193808, sha256:'703d2b48bab3859403c828e648e9f610d6a9a01721a368298b2371842fc7c485', label:'NanoOS App' },
+  { path:'full/nanoOS26_prism.bin', offset:0x10000, bytes:4190832, sha256:'0b858cc6bf7951c82a70415496498b9acb79f127f886e629923b7cbe1650daa1', label:'NanoOS App' },
 ].map(Object.freeze));
 export const sectorBytes = bytes => Math.ceil(bytes / 4096) * 4096;
 

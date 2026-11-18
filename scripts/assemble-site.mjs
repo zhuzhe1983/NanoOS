@@ -2,7 +2,7 @@ import { lstat, mkdir, copyFile, rm, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { RELEASE } from '../assets/installer/src/policy.mjs';
 // Explicit public allowlist. Technical gates do not assert source-license resolution.
-// Root approved the r014e payload and App/Full Python backend hardware evidence.
+// Current release payloads are pinned below alongside the previous public versions.
 const releaseContentReady = true;
 export const publicFiles = [
   "index.html",
@@ -51,13 +51,24 @@ export const publicFiles = [
   "releases/0.0.1/r014e/full/nanoOS26_prism.bin",
   "releases/0.0.1/r014e/FIRMWARE-NOTICES.txt",
   "releases/0.0.1/r014e/SHA256SUMS.txt",
-  "releases/0.0.1/r014e/NanoOS-0.0.1-Windows-x64-r014e.zip"
+  "releases/0.0.1/r014e/NanoOS-0.0.1-Windows-x64-r014e.zip",
+  "releases/0.0.1/r018/FIRMWARE-NOTICES.txt",
+  "releases/0.0.1/r018/NanoOS-0.0.1-Windows-x64-r018.zip",
+  "releases/0.0.1/r018/SHA256SUMS.txt",
+  "releases/0.0.1/r018/TF-resources.zip",
+  "releases/0.0.1/r018/app-manifest.json",
+  "releases/0.0.1/r018/full/bootloader.bin",
+  "releases/0.0.1/r018/full/nanoOS26_prism.bin",
+  "releases/0.0.1/r018/full/ota-data.bin",
+  "releases/0.0.1/r018/full/partition-table.bin",
+  "releases/0.0.1/r018/full-manifest.json",
+  "releases/0.0.1/r018/hardware-verification.json"
 ];
 const exactFiles = [
   {
     "path": "index.html",
-    "bytes": 7893,
-    "sha256": "78dfcb624aec8176fe4ea926bb5117c7bf382845d10d3e75e8da2d1d9462cd3e"
+    "bytes": 7909,
+    "sha256": "77f2cfa38f1ad3843e27521b2ba38009e8f38e96122b5d3dc12e9e700c3440e5"
   },
   {
     "path": "ai.html",
@@ -66,13 +77,13 @@ const exactFiles = [
   },
   {
     "path": "release.html",
-    "bytes": 20716,
-    "sha256": "514451570afe7c1e734b397fa723a2f1ba63d6614adfab333f36c9fb12890fa6"
+    "bytes": 19767,
+    "sha256": "f839ed6b3a69e9f5e04703e8b8cfe38f43818017081ca9be4682956e65072ac1"
   },
   {
     "path": "third-party.html",
-    "bytes": 3061,
-    "sha256": "00ed378e2def5f6bd0f6d680356b96c9300465b84b7df7ac99c1ffe774682931"
+    "bytes": 3411,
+    "sha256": "2aa22d80fb3a6af62c6b0458335649e9a25a826c628960d4ba5b22612da07d1e"
   },
   {
     "path": "assets/icon.svg",
@@ -131,8 +142,8 @@ const exactFiles = [
   },
   {
     "path": "assets/installer/src/policy.mjs",
-    "bytes": 9469,
-    "sha256": "cabe9a9f559096634e8724a1bdc24e30e9a2d1c02e536a2fdac0642416fccd4a"
+    "bytes": 9465,
+    "sha256": "74cbf716f8aac9d4f50756c2117b638c52d6c0008b854fe33e5ad2d75da32b06"
   },
   {
     "path": "assets/installer/src/esp-adapter.mjs",
@@ -231,8 +242,8 @@ const exactFiles = [
   },
   {
     "path": "assets/installer/src/full-policy.mjs",
-    "bytes": 4327,
-    "sha256": "ff28264854f219bbebe03a9dccb3fe9589c731d3c088145f03859d0a268b566a"
+    "bytes": 4326,
+    "sha256": "f10dc6ab2a81634d3419fd51a1c52a240d31342b38f976a49f9c2c1164c91c4d"
   },
   {
     "path": "assets/installer/src/full-installer.mjs",
@@ -288,12 +299,67 @@ const exactFiles = [
     "path": "releases/0.0.1/r014e/NanoOS-0.0.1-Windows-x64-r014e.zip",
     "bytes": 27611337,
     "sha256": "37e1d3304606ba61e9440ebad3c238411a6a877b205f029b1ea07a9fd5f1d6e5"
+  },
+  {
+    "path": "releases/0.0.1/r018/FIRMWARE-NOTICES.txt",
+    "bytes": 826799,
+    "sha256": "8d8594ea7e5eeff0eab0759a3e19df33d20e195161dd89c3294efc66277b2fff"
+  },
+  {
+    "path": "releases/0.0.1/r018/NanoOS-0.0.1-Windows-x64-r018.zip",
+    "bytes": 42576082,
+    "sha256": "0d256ff11bfb61dbaa9dd42af27865a72e6365c6fcfa45024c15b73c19a0721c"
+  },
+  {
+    "path": "releases/0.0.1/r018/SHA256SUMS.txt",
+    "bytes": 883,
+    "sha256": "4c3e29f9382509e5db6b5f1f5ced27996921b0770b07c63113c846a4071134da"
+  },
+  {
+    "path": "releases/0.0.1/r018/TF-resources.zip",
+    "bytes": 17841406,
+    "sha256": "90df8d527733e11adbfaa7fd0b1616a5a527a3e1dc35ebbeb2c3ecf90eda1cd2"
+  },
+  {
+    "path": "releases/0.0.1/r018/app-manifest.json",
+    "bytes": 675,
+    "sha256": "541fccc1f6eec48fa7ce3502d64cb2fcb72812c520343bbe4c34bc35fcb32c16"
+  },
+  {
+    "path": "releases/0.0.1/r018/full/bootloader.bin",
+    "bytes": 22304,
+    "sha256": "2fce714b1ed50f3e5e07ffff763617f634da977be2b6b1d676632a3bb5cba167"
+  },
+  {
+    "path": "releases/0.0.1/r018/full/nanoOS26_prism.bin",
+    "bytes": 4190832,
+    "sha256": "0b858cc6bf7951c82a70415496498b9acb79f127f886e629923b7cbe1650daa1"
+  },
+  {
+    "path": "releases/0.0.1/r018/full/ota-data.bin",
+    "bytes": 8192,
+    "sha256": "7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f"
+  },
+  {
+    "path": "releases/0.0.1/r018/full/partition-table.bin",
+    "bytes": 3072,
+    "sha256": "cc296c67732b24fc8fe359062e06d09b247de1abd225909b3902b5d13b1dc3df"
+  },
+  {
+    "path": "releases/0.0.1/r018/full-manifest.json",
+    "bytes": 1124,
+    "sha256": "31109ac3a3a591369d8e0fd628c004c0814fe3a777a8ccc87848e2b6370779c7"
+  },
+  {
+    "path": "releases/0.0.1/r018/hardware-verification.json",
+    "bytes": 527,
+    "sha256": "6519627e47a28433e63fcf14a97752b03ed3fcaa157e4d483bf5640e05a6ccf0"
   }
 ];
 if (!releaseContentReady) throw Error('Release content is not approved');
 if (!RELEASE.enabled || !RELEASE.firmwareApproved || !RELEASE.hardwareVerified) throw Error('Release is not hardware-approved');
 for (const mode of ['full','app']) {
-  const path = `releases/0.0.1/r014e/${mode}-manifest.json`;
+  const path = `releases/0.0.1/${RELEASE.modes[mode].build}/${mode}-manifest.json`;
   const exact = exactFiles.find(item => item.path === path), binding = RELEASE.modes[mode];
   if (!exact || binding.manifestSha256 !== exact.sha256 || binding.manifestBytes !== exact.bytes || !binding.manifestUrl.endsWith('/' + path)) throw Error('Unexpected release binding: ' + mode);
   const manifest = JSON.parse(await readFile(path, 'utf8'));
