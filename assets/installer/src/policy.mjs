@@ -13,14 +13,14 @@ export const RELEASE = Object.freeze({
   hardwareVerified: true,
   modes: Object.freeze({
     full: Object.freeze({
-      mode: 'full', build: 'r018',
-      manifestUrl: new URL('../../../releases/0.0.1/r018/full-manifest.json', import.meta.url).href,
-      manifestSha256: '31109ac3a3a591369d8e0fd628c004c0814fe3a777a8ccc87848e2b6370779c7', manifestBytes: 1124,
+      mode: 'full', build: 'r018a',
+      manifestUrl: new URL('../../../releases/0.0.2/r018a/full-manifest.json', import.meta.url).href,
+      manifestSha256: '1a376c42b3f8d42aca9c22c291e04015f4ac028aa4773f698d979cbbd7aec031', manifestBytes: 1125,
     }),
     app: Object.freeze({
-      mode: 'app', build: 'r018',
-      manifestUrl: new URL('../../../releases/0.0.1/r018/app-manifest.json', import.meta.url).href,
-      manifestSha256: '541fccc1f6eec48fa7ce3502d64cb2fcb72812c520343bbe4c34bc35fcb32c16', manifestBytes: 675,
+      mode: 'app', build: 'r018a',
+      manifestUrl: new URL('../../../releases/0.0.2/r018a/app-manifest.json', import.meta.url).href,
+      manifestSha256: '75c7906cfd7e35a735a0190d495434e65ffec69ec86b20835d02eb6f31bac467', manifestBytes: 676,
     }),
   }),
 });
@@ -46,7 +46,7 @@ export function check(condition, message) { if (!condition) throw new Error(mess
 export function checkSignal(signal) { if (signal?.aborted) throw signal.reason ?? new DOMException('已取消', 'AbortError'); }
 
 export function validateManifest(m, baseURL) {
-  check(m?.schema === 1 && m.product === 'NanoOS' && m.version === '0.0.1', '发布描述格式或版本不匹配');
+  check(m?.schema === 1 && m.product === 'NanoOS' && m.version === '0.0.2', '发布描述格式或版本不匹配');
   check(m.target?.chip === LIMITS.chip && m.target.chipId === LIMITS.chipId && m.target.flashBytes === LIMITS.flashBytes, '目标必须是 16 MiB ESP32-S31，不能用 S3 替代');
   check(m.image?.offset === LIMITS.appOffset && m.image.partition === 'app0', '只允许写入 app0 / 0x10000');
   check(Number.isSafeInteger(m.image.bytes) && m.image.bytes >= 64 && m.image.bytes <= LIMITS.appBytes && m.image.bytes % 16 === 0, '镜像长度必须对齐且不超过原 app0 的 4 MiB');

@@ -1,0 +1,10 @@
+{
+  "version": "0.0.2",
+  "build": "r018a",
+  "device": "ESP32-S31, 16 MiB",
+  "application_sha256": "1bc910b68c67f3ff06895a1c4209a40942562c6057b4ad92547452db0e83da4e",
+  "application_install": "0.0.2 app0 written on S31. Full 16 MiB readback, retained regions and boot status verified.",
+  "full_install": "Unchanged bootloader, partition table and OTA initializer previously verified by a full S31 install; 0.0.2 four-part plan tested on host. No separate full-mode hardware run for this build.",
+  "native_windows_tested": false,
+  "webui_cache": "Identical r018a conversion components tested with audio, video and PDF on S31. Warm reload required zero WASM transfers."
+}

@@ -1,17 +1,17 @@
 import { LIMITS, check, sha256, validateImage, validatePartitions } from './policy.mjs';
 
-export const FULL_BUILD = 'r018';
+export const FULL_BUILD = 'r018a';
 export const ORIGINAL_TABLE_SHA256 = '0d07801a8c51ddc2b85b1aa302c64b770d7ec471c9dabd33a80d644b5ac7b96c';
 export const FULL_PARTS = Object.freeze([
   { path:'full/bootloader.bin', offset:0x2000, bytes:22304, sha256:'2fce714b1ed50f3e5e07ffff763617f634da977be2b6b1d676632a3bb5cba167', label:'引导程序' },
   { path:'full/partition-table.bin', offset:0x8000, bytes:3072, sha256:'cc296c67732b24fc8fe359062e06d09b247de1abd225909b3902b5d13b1dc3df', label:'分区表' },
   { path:'full/ota-data.bin', offset:0xe000, bytes:8192, sha256:'7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f', label:'启动选择' },
-  { path:'full/nanoOS26_prism.bin', offset:0x10000, bytes:4190832, sha256:'0b858cc6bf7951c82a70415496498b9acb79f127f886e629923b7cbe1650daa1', label:'NanoOS App' },
+  { path:'full/nanoOS26_prism.bin', offset:0x10000, bytes:4190832, sha256:'1bc910b68c67f3ff06895a1c4209a40942562c6057b4ad92547452db0e83da4e', label:'NanoOS App' },
 ].map(Object.freeze));
 export const sectorBytes = bytes => Math.ceil(bytes / 4096) * 4096;
 
 export function validateFullManifest(m, baseURL) {
-  check(m?.schema === 1 && m.version === '0.0.1' && m.build === FULL_BUILD && m.mode === 'full', '完整安装清单版本或模式不匹配');
+  check(m?.schema === 1 && m.version === '0.0.2' && m.build === FULL_BUILD && m.mode === 'full', '完整安装清单版本或模式不匹配');
   check(m.chip === 'esp32s31' && m.flash_bytes === LIMITS.flashBytes && m.erase_all === false, '完整安装只支持 16 MiB S31，禁止全片擦除');
   check(typeof m.hardware_verified === 'boolean' && !m.image && !m.builds, '完整安装清单结构无效');
   check(m.partition_table_offset === LIMITS.tableOffset && m.partition_table_bytes === LIMITS.tableBytes && m.partition_table_sha256 === ORIGINAL_TABLE_SHA256, '完整安装的分区表约束不匹配');

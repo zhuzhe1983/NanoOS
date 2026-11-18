@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "version": "0.0.2",
+  "build": "r018a",
+  "mode": "full",
+  "chip": "esp32s31",
+  "flash_bytes": 16777216,
+  "erase_all": false,
+  "parts": [
+    {
+      "path": "full/bootloader.bin",
+      "offset": 8192,
+      "bytes": 22304,
+      "sha256": "2fce714b1ed50f3e5e07ffff763617f634da977be2b6b1d676632a3bb5cba167"
+    },
+    {
+      "path": "full/partition-table.bin",
+      "offset": 32768,
+      "bytes": 3072,
+      "sha256": "cc296c67732b24fc8fe359062e06d09b247de1abd225909b3902b5d13b1dc3df"
+    },
+    {
+      "path": "full/ota-data.bin",
+      "offset": 57344,
+      "bytes": 8192,
+      "sha256": "7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f"
+    },
+    {
+      "path": "full/nanoOS26_prism.bin",
+      "offset": 65536,
+      "bytes": 4190832,
+      "sha256": "1bc910b68c67f3ff06895a1c4209a40942562c6057b4ad92547452db0e83da4e"
+    }
+  ],
+  "partition_table_sha256": "0d07801a8c51ddc2b85b1aa302c64b770d7ec471c9dabd33a80d644b5ac7b96c",
+  "partition_table_offset": 32768,
+  "partition_table_bytes": 4096,
+  "hardware_verified": true,
+  "verification": "hardware-verification.json"
+}

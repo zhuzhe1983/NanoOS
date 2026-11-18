@@ -62,28 +62,39 @@ export const publicFiles = [
   "releases/0.0.1/r018/full/ota-data.bin",
   "releases/0.0.1/r018/full/partition-table.bin",
   "releases/0.0.1/r018/full-manifest.json",
-  "releases/0.0.1/r018/hardware-verification.json"
+  "releases/0.0.1/r018/hardware-verification.json",
+  "releases/0.0.2/r018a/FIRMWARE-NOTICES.txt",
+  "releases/0.0.2/r018a/NanoOS-0.0.2-Windows-x64-r018a.zip",
+  "releases/0.0.2/r018a/SHA256SUMS.txt",
+  "releases/0.0.2/r018a/TF-resources.zip",
+  "releases/0.0.2/r018a/app-manifest.json",
+  "releases/0.0.2/r018a/full/bootloader.bin",
+  "releases/0.0.2/r018a/full/nanoOS26_prism.bin",
+  "releases/0.0.2/r018a/full/ota-data.bin",
+  "releases/0.0.2/r018a/full/partition-table.bin",
+  "releases/0.0.2/r018a/full-manifest.json",
+  "releases/0.0.2/r018a/hardware-verification.json"
 ];
 const exactFiles = [
   {
     "path": "index.html",
-    "bytes": 7909,
-    "sha256": "77f2cfa38f1ad3843e27521b2ba38009e8f38e96122b5d3dc12e9e700c3440e5"
+    "bytes": 7921,
+    "sha256": "5f3a48c1827d881b345f8abcaadb3c9a4699dfac3a4d6d595e13da8f5e604bfc"
   },
   {
     "path": "ai.html",
     "bytes": 8566,
-    "sha256": "b125a64cade57c4e75ab28e456463dcd9a6680928f844e7604aab531dc2892eb"
+    "sha256": "d6680e9dd802ac2af2f74d15f7a9932001f2930c1e86f65a3b2134e7567b345c"
   },
   {
     "path": "release.html",
-    "bytes": 19767,
-    "sha256": "f839ed6b3a69e9f5e04703e8b8cfe38f43818017081ca9be4682956e65072ac1"
+    "bytes": 19914,
+    "sha256": "64acb6202382033265ecf02d998891e424d8ba80023d3c8de3de1062964cc064"
   },
   {
     "path": "third-party.html",
-    "bytes": 3411,
-    "sha256": "2aa22d80fb3a6af62c6b0458335649e9a25a826c628960d4ba5b22612da07d1e"
+    "bytes": 3414,
+    "sha256": "30c59f4009f8e0d708eab1ade6f85208f42c56499dd00400f39fecaad190cf98"
   },
   {
     "path": "assets/icon.svg",
@@ -142,8 +153,8 @@ const exactFiles = [
   },
   {
     "path": "assets/installer/src/policy.mjs",
-    "bytes": 9465,
-    "sha256": "74cbf716f8aac9d4f50756c2117b638c52d6c0008b854fe33e5ad2d75da32b06"
+    "bytes": 9469,
+    "sha256": "39e5c687844b7fcc481a4180f099f70cd18ca5d8488ca4ef2540451c368b6081"
   },
   {
     "path": "assets/installer/src/esp-adapter.mjs",
@@ -242,8 +253,8 @@ const exactFiles = [
   },
   {
     "path": "assets/installer/src/full-policy.mjs",
-    "bytes": 4326,
-    "sha256": "f10dc6ab2a81634d3419fd51a1c52a240d31342b38f976a49f9c2c1164c91c4d"
+    "bytes": 4327,
+    "sha256": "2744017a630891dcf71e0214a969667c734bbab3702bfb8b6a3acba2a5c62ea1"
   },
   {
     "path": "assets/installer/src/full-installer.mjs",
@@ -354,12 +365,67 @@ const exactFiles = [
     "path": "releases/0.0.1/r018/hardware-verification.json",
     "bytes": 527,
     "sha256": "6519627e47a28433e63fcf14a97752b03ed3fcaa157e4d483bf5640e05a6ccf0"
+  },
+  {
+    "path": "releases/0.0.2/r018a/FIRMWARE-NOTICES.txt",
+    "bytes": 826806,
+    "sha256": "147a02fc7d4e67508385b9b14d67796d40b278b3889468b35d36234cb9de5ea2"
+  },
+  {
+    "path": "releases/0.0.2/r018a/NanoOS-0.0.2-Windows-x64-r018a.zip",
+    "bytes": 42586997,
+    "sha256": "a3b2f01260638b93eda88518a56c7a9b145b4ddb124180fe03fb300c2ecfba56"
+  },
+  {
+    "path": "releases/0.0.2/r018a/SHA256SUMS.txt",
+    "bytes": 884,
+    "sha256": "c32fe00e879db13b631273c03abe4edf66ec25cc1ed7285ac9a95c8579975a38"
+  },
+  {
+    "path": "releases/0.0.2/r018a/TF-resources.zip",
+    "bytes": 17850045,
+    "sha256": "6144a4781ac4e505caf913a521c17f09e7e5c7be84cf0b0f07baba1db5e22ab5"
+  },
+  {
+    "path": "releases/0.0.2/r018a/app-manifest.json",
+    "bytes": 676,
+    "sha256": "75c7906cfd7e35a735a0190d495434e65ffec69ec86b20835d02eb6f31bac467"
+  },
+  {
+    "path": "releases/0.0.2/r018a/full/bootloader.bin",
+    "bytes": 22304,
+    "sha256": "2fce714b1ed50f3e5e07ffff763617f634da977be2b6b1d676632a3bb5cba167"
+  },
+  {
+    "path": "releases/0.0.2/r018a/full/nanoOS26_prism.bin",
+    "bytes": 4190832,
+    "sha256": "1bc910b68c67f3ff06895a1c4209a40942562c6057b4ad92547452db0e83da4e"
+  },
+  {
+    "path": "releases/0.0.2/r018a/full/ota-data.bin",
+    "bytes": 8192,
+    "sha256": "7d2c7ac4888bfd75cd5f56e8d61f69595121183afc81556c876732fd3782c62f"
+  },
+  {
+    "path": "releases/0.0.2/r018a/full/partition-table.bin",
+    "bytes": 3072,
+    "sha256": "cc296c67732b24fc8fe359062e06d09b247de1abd225909b3902b5d13b1dc3df"
+  },
+  {
+    "path": "releases/0.0.2/r018a/full-manifest.json",
+    "bytes": 1125,
+    "sha256": "1a376c42b3f8d42aca9c22c291e04015f4ac028aa4773f698d979cbbd7aec031"
+  },
+  {
+    "path": "releases/0.0.2/r018a/hardware-verification.json",
+    "bytes": 675,
+    "sha256": "efd68a0b626570c1564feb0f72e8c5511ca644b1c9291bf73df3f2b92864b0fd"
   }
 ];
 if (!releaseContentReady) throw Error('Release content is not approved');
 if (!RELEASE.enabled || !RELEASE.firmwareApproved || !RELEASE.hardwareVerified) throw Error('Release is not hardware-approved');
 for (const mode of ['full','app']) {
-  const path = `releases/0.0.1/${RELEASE.modes[mode].build}/${mode}-manifest.json`;
+  const path = `releases/0.0.2/${RELEASE.modes[mode].build}/${mode}-manifest.json`;
   const exact = exactFiles.find(item => item.path === path), binding = RELEASE.modes[mode];
   if (!exact || binding.manifestSha256 !== exact.sha256 || binding.manifestBytes !== exact.bytes || !binding.manifestUrl.endsWith('/' + path)) throw Error('Unexpected release binding: ' + mode);
   const manifest = JSON.parse(await readFile(path, 'utf8'));
@@ -375,4 +441,4 @@ for (const item of exactFiles) {
 try { if ((await lstat('_site')).isSymbolicLink()) throw Error('Refusing symlink output'); } catch(e) { if(e.code!=='ENOENT') throw e; }
 await rm('_site',{recursive:true,force:true});
 for(const file of publicFiles){const output=`_site/${file}`;await mkdir(output.slice(0,output.lastIndexOf('/')),{recursive:true});await copyFile(file,output);}
-console.log(JSON.stringify({version:'0.0.1',firmware:true,install:true,publicFileCount:publicFiles.length,GPLSourceProvisionResolved:false,publicFiles}));
+console.log(JSON.stringify({version:'0.0.2',firmware:true,install:true,publicFileCount:publicFiles.length,GPLSourceProvisionResolved:false,publicFiles}));
